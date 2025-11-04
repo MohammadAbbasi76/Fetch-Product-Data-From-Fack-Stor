@@ -8,6 +8,7 @@ find_package(CURL REQUIRED)
 add_library(${PROJECT_NAME}
     ReceiveData.cpp
     DataProcessing.cpp
+    FileOpration.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE CURL::libcurl)
