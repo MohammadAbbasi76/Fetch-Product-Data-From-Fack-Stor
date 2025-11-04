@@ -7,15 +7,14 @@ size_t DataProcessing::getProductCount() const {
 }
 
 std::vector<Product> DataProcessing::parseJsonData() {
-    products.clear(); // Clear any existing products
-
+    products.clear(); 
     try {
         json jsonData = json::parse(jsonString);
         if (!jsonData.is_array()) {
             throw std::runtime_error("JSON data must be an array of products");
         }
         size_t productCount = jsonData.size();
-        products.reserve(productCount); // Optimize vector allocation
+        products.reserve(productCount);
 
         for (const auto &item : jsonData) {
             Product product{};  
