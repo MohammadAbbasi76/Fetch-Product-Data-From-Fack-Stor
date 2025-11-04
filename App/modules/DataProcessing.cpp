@@ -3,18 +3,18 @@
 #include <iostream>
 
 size_t DataProcessing::getProductCount() const {
-    return products.size();
+    return Products.size();
 }
 
 std::vector<Product> DataProcessing::parseJsonData() {
-    products.clear(); 
+    Products.clear(); 
     try {
-        json jsonData = json::parse(jsonString);
+        json jsonData = json::parse(JsonString);
         if (!jsonData.is_array()) {
             throw std::runtime_error("JSON data must be an array of products");
         }
         size_t productCount = jsonData.size();
-        products.reserve(productCount);
+        Products.reserve(productCount);
 
         for (const auto &item : jsonData) {
             Product product{};  
@@ -37,7 +37,7 @@ std::vector<Product> DataProcessing::parseJsonData() {
             product.title = item["title"].get<std::string>();
             product.price = item["price"].get<double>();
             product.category = item.value("category", "Uncategorized");
-            products.push_back(product);
+            Products.push_back(product);
         }
 
     } catch (const json::parse_error &e) {
@@ -46,5 +46,5 @@ std::vector<Product> DataProcessing::parseJsonData() {
         throw std::runtime_error("Error processing JSON data: " + std::string(e.what()));
     }
 
-    return products;
+    return Products;
 }

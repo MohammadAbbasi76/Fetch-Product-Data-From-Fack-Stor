@@ -3,8 +3,8 @@
 
 // Constructor
 FileOpration::FileOpration(const std::string& baseDir) 
-    : baseDir(baseDir) {
-    filepath = baseDir + "/" + filename;
+    : BaseDir(baseDir) {
+    FilePath = BaseDir + "/" + filename;
 }
 
 // Static helper method for CSV escaping
@@ -35,12 +35,11 @@ bool FileOpration::MakeDirIfNeeded(const std::string &path) {
     if (DirectoryExists(path))
         return true;
     
-    // Create directory with mode 0755
     if (mkdir(path.c_str(), 0755) == 0)
         return true;
     
     if (errno == EEXIST)
-        return DirectoryExists(path); // Handle race condition
+        return DirectoryExists(path); 
     
     return false;
 }
@@ -55,12 +54,12 @@ long FileOpration::FileSizeIfExists(const std::string &path) {
 
 // Helper method to check and create directory
 std::string FileOpration::CheckAndCreateDir() {
-    if (!MakeDirIfNeeded(baseDir)) {
-        std::cerr << "Failed to create directory '" << baseDir
+    if (!MakeDirIfNeeded(BaseDir)) {
+        std::cerr << "Failed to create directory '" << BaseDir
                   << "': " << std::strerror(errno) << "\n";
         return "failed";
     }
-    return filepath;
+    return FilePath;
 }
 
 // Main method to modify CSV
@@ -71,25 +70,21 @@ int FileOpration::ModifyCSV(const std::vector<Product> &products) {
         return 1;
     }
     
-    // Determine if we need to write header
     bool write_header = true;
-    long sz = FileSizeIfExists(filepath);
+    long sz = FileSizeIfExists(FilePath);
     if (sz > 0)
         write_header = false;
 
-    // Open file in append mode
-    std::ofstream csv(filepath, std::ios::app);
+    std::ofstream csv(FilePath, std::ios::app);
     if (!csv.is_open()) {
-        std::cerr << "Failed to open '" << filepath << "' for writing.\n";
+        std::cerr << "Failed to open '" << FilePath << "' for writing.\n";
         return 1;
     }
 
-    // Write header if needed
     if (write_header) {
         csv << "ID,Title,Price,Category\n";
     }
 
-    // Write product data
     for (const auto &item : products) {
         csv << item.id << ","
             << EscapeCSV(item.title) << ","

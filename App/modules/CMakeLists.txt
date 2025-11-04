@@ -9,9 +9,13 @@ add_library(${PROJECT_NAME}
     ReceiveData.cpp
     DataProcessing.cpp
     FileOpration.cpp
+    Compression.cpp
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE CURL::libcurl)
+target_link_libraries(${PROJECT_NAME} 
+    PRIVATE CURL::libcurl
+    stdc++fs zip
+)
 
 
 

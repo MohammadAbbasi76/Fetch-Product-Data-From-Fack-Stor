@@ -108,10 +108,8 @@ std::string ReceiveData::SendRquestAndHandleIt() {
     throw std::runtime_error("Failed to fetch data after " + std::to_string(maxRetries) + " attempts");
   }
 
-  // Clean up CURL
   curl_easy_cleanup(curl);
   curl_global_cleanup();
   
-  // Return the JSON response
   return response;
 }

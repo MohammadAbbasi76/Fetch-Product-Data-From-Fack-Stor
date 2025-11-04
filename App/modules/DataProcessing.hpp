@@ -14,13 +14,13 @@ struct Product {
 
 class DataProcessing {
 public:
-  DataProcessing(const std::string &jsonStr) : jsonString(jsonStr){};
+  DataProcessing(const std::string &jsonStr) : JsonString(jsonStr){};
   ~DataProcessing() = default;
 
   std::vector<Product> parseJsonData();
   size_t getProductCount() const;
 
 private:
-  const std::string jsonString;
-  std::vector<Product> products;
+  const std::string JsonString;
+  std::vector<Product> Products;
 };

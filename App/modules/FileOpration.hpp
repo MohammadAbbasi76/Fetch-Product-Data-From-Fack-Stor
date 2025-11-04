@@ -21,12 +21,12 @@ private:
   static bool MakeDirIfNeeded(const std::string &path);
   static long FileSizeIfExists(const std::string &path);
 
-  std::string GetBaseDir() const { return baseDir; }
-  std::string GetFilePath() const { return filepath; }
+  std::string GetBaseDir() const { return BaseDir; }
+  std::string GetFilePath() const { return FilePath; }
   std::string CheckAndCreateDir();
   static std::string EscapeCSV(const std::string &s);
 
-  std::string baseDir;
-  std::string filepath;
+  std::string BaseDir;
+  std::string FilePath;
   const std::string filename = "products.csv";
 };

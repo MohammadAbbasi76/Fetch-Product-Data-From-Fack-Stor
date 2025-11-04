@@ -1,3 +1,4 @@
+#include "modules/Compression.hpp"
 #include "modules/DataProcessing.hpp"
 #include "modules/FileOpration.hpp"
 #include "modules/ReceiveData.hpp"
@@ -10,6 +11,7 @@ int main() {
   ReceiveData receiver(url);
 
   try {
+    
     // Fetch the data from the API
     std::string jsonData = receiver.SendRquestAndHandleIt();
 
@@ -26,7 +28,18 @@ int main() {
     } else {
       std::cout << "CSV file modified successfully." << std::endl;
     }
+
+    // Compress the data folder into a ZIP file
+    Compression compressor("data", "data.zip");
+    int compressResult = compressor.CompressFolder();
+    if (compressResult != 0) {
+      std::cerr << "Failed to compress folder." << std::endl;
+      return 1;
+    }
     return 0;
+
+
+
   } catch (const std::exception &e) {
     std::cerr << "Error: " << e.what() << std::endl;
     return 1;
