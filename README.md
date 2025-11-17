@@ -2,7 +2,7 @@ FetchProductDataFromFackStor
 
 Small C++ application that fetches product data from a fake store API, parses and
 extracts product information (id, title, price, category), writes a CSV, and compresses
-the results into a zip file that **I do as interview test**.
+the results into a zip file that **I did as interview test**.
 
 This README explains how to build and run the project, which dependencies are required,
 how to use the main components from code, and common troubleshooting steps when
